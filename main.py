@@ -42,6 +42,7 @@ async def extract_structured_data(provider: str, api_token: str = None):
             llm_config=LLMConfig(provider=provider, api_token=api_token),
             schema=Features.model_json_schema(),
             extraction_type="schema",
+            input_format="markdown",
             extra_arguments=extra_arguments,
             instructions="From the crawled text, extract all the text and deduce the features that I described in the schema.",
         )
@@ -49,10 +50,10 @@ async def extract_structured_data(provider: str, api_token: str = None):
 
 
     async with AsyncWebCrawler(config=browser_config) as crawler:
-        result = await crawler.arun(url="https://www.conning.com/about-us/insights/equity-market-outlook-column-2025#:~:text=From%20Q2%202023%20%2D%20estimated%20Q2,a%20paltry%206%25%20on%20average.", config=crawler_config, excluded_tags=True)
+        result = await crawler.arun(url="https://www.aljazeera.com/news/2021/11/1/modi-india-to-hit-net-zero-climate-target-by-2070", config=crawler_config, excluded_tags=True)
         print(result.extracted_content)
         print(result.cleaned_html)
-        print(result.markdown.fit_markdown)
+        print(result.markdown.raw_markdown)
 
 
 
