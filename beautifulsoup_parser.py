@@ -2,7 +2,10 @@ from bs4 import BeautifulSoup
 import re
 import requests
 from urllib.parse import urlparse
+import math
 
+def normalize_score(score: float) -> float:
+    return round(1 - math.exp(-0.3 * score), 3)
 
 def extract_statistics_score(soup: BeautifulSoup) -> float:
 
@@ -20,8 +23,7 @@ def extract_statistics_score(soup: BeautifulSoup) -> float:
     stat_kw_count = sum(text.count(w) for w in stat_words)
     
     raw_score = num_ratio*50 + table_tags*2 + img_charts*3 + stat_kw_count*0.1
-    score = min(1.0, raw_score / 10)
-    return score
+    return normalize_score(raw_score)
 
 
 def extract_quotation_score(soup: BeautifulSoup) -> float:
@@ -39,9 +41,7 @@ def extract_quotation_score(soup: BeautifulSoup) -> float:
     verb_count = sum(text.lower().count(v) for v in verbs)
     
     raw_score = q_tags*2 + len(quoted_phrases)*0.5 + verb_count*0.1
-    score = min(1.0, raw_score / 8)
-    
-    return round(score, 3)
+    return normalize_score(raw_score)
 
 
 def extract_cite_sources_score(soup: BeautifulSoup, domain) -> float:
@@ -57,9 +57,7 @@ def extract_cite_sources_score(soup: BeautifulSoup, domain) -> float:
     sup_tags = len(soup.find_all("sup"))
     
     raw_score = len(external_links)*0.2 + citation_kw*0.5 + sup_tags*0.2
-    score = min(1.0, raw_score / 8)
-    
-    return round(score, 3)
+    return normalize_score(raw_score)
 
 
 def analyse_site(url: str) -> dict:
@@ -80,5 +78,5 @@ def analyse_site(url: str) -> dict:
 
 
 if __name__ == "__main__":
-    url = "https://www.aljazeera.com/news/2021/11/1/modi-india-to-hit-net-zero-climate-target-by-2070"
+    url = "https://www.conning.com/about-us/insights/equity-market-outlook-column-2025#:~:text=From%20Q2%202023%20%2D%20estimated%20Q2,a%20paltry%206%25%20on%20average."
     print(analyse_site(url))
