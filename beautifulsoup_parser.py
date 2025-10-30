@@ -30,13 +30,10 @@ def extract_quotation_score(soup: BeautifulSoup) -> float:
 
     text = soup.get_text(" ", strip=True)
     
-    # (1) HTML tags for quotes
     q_tags = len(soup.find_all(["q", "blockquote"]))
     
-    # (2) Text-based quotes (within quotation marks)
     quoted_phrases = re.findall(r'["“”][^"“”]{5,200}["“”]', text)
     
-    # (3) Attribution keywords
     verbs = ["said", "stated", "reported", "claimed", "noted"]
     verb_count = sum(text.lower().count(v) for v in verbs)
     
