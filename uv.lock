@@ -502,11 +502,17 @@ name = "feature-evaluator"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "beautifulsoup4" },
     { name = "crawl4ai" },
+    { name = "lxml" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "crawl4ai", specifier = ">=0.7.6" }]
+requires-dist = [
+    { name = "beautifulsoup4", specifier = ">=4.14.2" },
+    { name = "crawl4ai", specifier = ">=0.7.6" },
+    { name = "lxml", specifier = ">=5.4.0" },
+]
 
 [[package]]
 name = "filelock"

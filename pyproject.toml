@@ -8,7 +8,9 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "beautifulsoup4>=4.14.2",
     "crawl4ai>=0.7.6",
+    "lxml>=5.4.0",
 ]
 
 [project.scripts]
