@@ -52,8 +52,6 @@ async def extract_structured_data(provider: str, api_token: str = None):
     async with AsyncWebCrawler(config=browser_config) as crawler:
         result = await crawler.arun(url="https://www.aljazeera.com/news/2021/11/1/modi-india-to-hit-net-zero-climate-target-by-2070", config=crawler_config, excluded_tags=True)
         print(result.extracted_content)
-        print(result.cleaned_html)
-        print(result.markdown.raw_markdown)
 
 
 
