@@ -1,0 +1,14 @@
+method:llm 
+llm_provider: ollama/gemma3
+llm_temperature: 0
+llm_top_p: 0.9
+llm_max_tokens: 1000
+llm_instructions: From the crawled text, extract all the text and deduce the features that I described in the schema.
+html_based_method:
+  exclude_tags: True
+  exclude_classes: True
+  exclude_ids: True
+  exclude_attributes: True
+  exclude_text: True
+  exclude_links: True
+  exclude_images: True
